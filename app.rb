@@ -19,7 +19,25 @@ post ('/add_train') do
   erb(:result)
 end
 
-get('/train/:id') do
+get('/train/:id/edit') do
   @train = Train.find(params.fetch('id').to_i)
+  erb(:train_info)
+end
+
+delete('/train/:id') do
+  @train = Train.find(params.fetch('id').to_i)
+  @train.delete()
+  redirect to('/')
+end
+
+delete('/trains/delete') do
+  Train.clear()
+  redirect to('/')
+end
+
+patch('/trains/update_name/:id') do
+  @train = Train.find(params.fetch('id').to_i)
+  name = params.fetch('name')
+  @train.update_name(name)
   erb(:train_info)
 end

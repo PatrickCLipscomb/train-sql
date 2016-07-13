@@ -51,4 +51,14 @@ describe(Train) do
       expect(train1.name).to(eq('Synthia'))
     end
   end
+  describe('.clear') do
+    it "will clear out the trains table" do
+      train1 = Train.new({:name => 'Chuck'})
+      train2 = Train.new({:name => 'Wallace'})
+      train1.save()
+      train2.save()
+      Train.clear()
+      expect(Train.all()).to(eq([]))
+    end
+  end
 end

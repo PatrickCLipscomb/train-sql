@@ -1,10 +1,14 @@
 <div class="row">
   <div class="col-xs-4">
     <h1>List of Trains</h1>
+    <p>
+      <a href="trains/delete">Clear Trains</a>
+    </p>
+
     <%if @trains%>
     <ul>
       <%@trains.each() do |train|%>
-      <li><a href="/train/<%=train.id%>"><%=train.name%></a></li>
+      <li><a href="/train/<%=train.id%>/edit"><%=train.name%></a></li>
       <%end%>
     </ul>
     <%else%>
@@ -13,3 +17,7 @@
   </div>
 
 </div>
+
+<p>
+  <a href="/">Home Page</a>
+</p>

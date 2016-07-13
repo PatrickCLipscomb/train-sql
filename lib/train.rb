@@ -39,4 +39,7 @@ class Train
     @name = name
     DB.exec("UPDATE trains SET name = '#{@name}' WHERE id = #{self.id};")
   end
+  define_singleton_method(:clear) do
+    DB.exec("DELETE FROM trains")
+  end
 end
