@@ -2,9 +2,11 @@
   <div class="col-xs-4">
     <h1>List of Trains</h1>
     <p>
-      <a href="trains/delete">Clear Trains</a>
+      <form action="/trains/delete" method="post">
+        <input name="_method" type="hidden" value="delete">
+        <button class="btn-lg" type="submit">Clear Trains</button>
+      </form>
     </p>
-
     <%if @trains%>
     <ul>
       <%@trains.each() do |train|%>
@@ -15,9 +17,44 @@
       <h3>No trains have been added yet</h3>
     <%end%>
   </div>
+  <div class="col-xs-4">
+    <h1>List of Stops</h1>
+    <p>
+      <form action="/stops/delete" method="post">
+        <input name="_method" type="hidden" value="delete">
+        <button class="btn-lg" type="submit">Clear Stops</button>
+      </form>
+    </p>
+    <%if @stops%>
+    <ul>
+      <%@stops.each() do |stop|%>
+      <li><a href="/stop/<%=stop.id%>/edit"><%=stop.name%></a></li>
+      <%end%>
+    </ul>
+    <%else%>
+      <h3>No stops have been added yet</h3>
+    <%end%>
+  </div>
+  <div class="col-xs-4">
+    <h1>List of Timetables</h1>
+    <p>
+      <form action="/timetables/delete" method="post">
+        <input name="_method" type="hidden" value="delete">
+        <button class="btn-lg" type="submit">Clear Timetables</button>
+      </form>
+    </p>
+    <%if @timetables%>
+    <ul>
+      <%@timetables.each() do |timetable|%>
+      <li><a href="/timetable/<%=timetable.id%>/edit"><%=timetable.name%></a></li>
+      <%end%>
+    </ul>
+    <%else%>
+      <h3>No timetables have been added yet</h3>
+    <%end%>
+  </div>
 
 </div>
-
 <p>
   <a href="/">Home Page</a>
 </p>

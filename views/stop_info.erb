@@ -1,16 +1,16 @@
-<h1><%= @train.name %></h1>
+<h1><%= @stop.name %></h1>
 
-<form action="/train/<%=@train.id%>" method="post">
+<form action="/stop/<%=@stop.id%>" method="post">
   <input name="_method" type="hidden" value="delete">
-  <button class="btn-lg" type="submit">Delete Train</button>
+  <button class="btn-lg" type="submit">Delete Stop</button>
 </form>
 
-<form action="/trains/delete" method="post">
+<form action="/stops/delete" method="post">
   <input name="_method" type="hidden" value="delete">
-  <button class="btn-lg" type="submit">Clear Trains</button>
+  <button class="btn-lg" type="submit">Clear Stops</button>
 </form>
 
-<form action="/trains/update_name/<%=@train.id%>" method="post">
+<form action="/stops/update_name/<%=@stop.id%>" method="post">
   <label for="name">Update Train Name</label>
   <input type="text" name="name">
   <input name="_method" type="hidden" value="patch">

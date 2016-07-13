@@ -42,4 +42,12 @@ class Train
   define_singleton_method(:clear) do
     DB.exec("DELETE FROM trains")
   end
+  define_method(:find_stops) do
+    current_stops = DB.exec('
+      SELECT stops.* FROM trains
+      JOIN stop_trains ON (trains.id = stop_trains.train_id)
+      JOIN stops ON (stop_trains.stop_id = stops.id )
+      WHERE train.id
+    ')
+  end
 end

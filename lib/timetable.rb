@@ -39,4 +39,7 @@ class Timetable
     @name = name
     DB.exec("UPDATE timetables SET name = '#{@name}' WHERE id = #{self.id};")
   end
+  define_singleton_method(:clear) do
+    DB.exec("DELETE FROM timetables")
+  end
 end

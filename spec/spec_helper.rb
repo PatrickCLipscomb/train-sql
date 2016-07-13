@@ -1,6 +1,7 @@
 require('rspec')
 require('train')
 require('stop')
+require('stop_train')
 require('timetable')
 require('pg')
 require('pry')
@@ -12,5 +13,6 @@ RSpec.configure do |config|
     DB.exec("DELETE FROM trains *;")
     DB.exec("DELETE FROM stops *;")
     DB.exec("DELETE FROM timetables *;")
+    DB.exec("DELETE FROM stop_trains *;")
   end
 end

@@ -39,4 +39,7 @@ class Stop
     @name = name
     DB.exec("UPDATE stops SET name = '#{@name}' WHERE id = #{self.id};")
   end
+  define_singleton_method(:clear) do
+    DB.exec("DELETE FROM stops")
+  end
 end

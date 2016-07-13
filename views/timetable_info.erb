@@ -1,16 +1,16 @@
-<h1><%= @train.name %></h1>
+<h1><%= @timetable.name %></h1>
 
-<form action="/train/<%=@train.id%>" method="post">
+<form action="/timetable/<%=@timetable.id%>" method="post">
   <input name="_method" type="hidden" value="delete">
-  <button class="btn-lg" type="submit">Delete Train</button>
+  <button class="btn-lg" type="submit">Delete Timetable</button>
 </form>
 
-<form action="/trains/delete" method="post">
+<form action="/timetables/delete" method="post">
   <input name="_method" type="hidden" value="delete">
-  <button class="btn-lg" type="submit">Clear Trains</button>
+  <button class="btn-lg" type="submit">Clear Timetables</button>
 </form>
 
-<form action="/trains/update_name/<%=@train.id%>" method="post">
+<form action="/timetables/update_name/<%=@timetable.id%>" method="post">
   <label for="name">Update Train Name</label>
   <input type="text" name="name">
   <input name="_method" type="hidden" value="patch">
