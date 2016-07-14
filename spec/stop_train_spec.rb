@@ -8,4 +8,10 @@ describe(Stoptrain) do
       expect(Stoptrain.all()).to(eq([stop_train]))
     end
   end
+  describe('.assign_stops_to_trains') do
+    it "creates a association between one train and multiple stops" do
+      Stoptrain.assign_stops_to_trains(2, [2,3,4])
+      expect(Stoptrain.assignment_check()).to(eq(3))
+    end
+  end
 end

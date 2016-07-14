@@ -1,22 +1,36 @@
 <h1><%= @train.name %></h1>
 
-<form action="/train/<%=@train.id%>" method="post">
-  <input name="_method" type="hidden" value="delete">
-  <button class="btn-lg" type="submit">Delete Train</button>
-</form>
+<div class="container row">
+  <div class="col-xs-6">
+    <form action="/train/<%=@train.id%>" method="post">
+      <input name="_method" type="hidden" value="delete">
+      <button class="btn-lg" type="submit">Delete Train</button>
+    </form>
 
-<form action="/trains/delete" method="post">
-  <input name="_method" type="hidden" value="delete">
-  <button class="btn-lg" type="submit">Clear Trains</button>
-</form>
+    <form action="/trains/delete" method="post">
+      <input name="_method" type="hidden" value="delete">
+      <button class="btn-lg" type="submit">Clear Trains</button>
+    </form>
+  </div>
+  <div class="col-xs-6">
+    <% if @stops %>
+      <ul>
+        <% @stops.each() do |stop| %>
+          <li><%= stop.name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h2>No stops have been assigned to this train</h2>
+    <% end %>
+  </div>
+  <form action="/trains/update_name/<%=@train.id%>" method="post">
+    <label for="name">Update Train Name</label>
+    <input type="text" name="name">
+    <input name="_method" type="hidden" value="patch">
+    <button class="btn-lg" type="submit">Update Name</button>
+  </form>
 
-<form action="/trains/update_name/<%=@train.id%>" method="post">
-  <label for="name">Update Train Name</label>
-  <input type="text" name="name">
-  <input name="_method" type="hidden" value="patch">
-  <button class="btn-lg" type="submit">Update Name</button>
-</form>
-
-<p>
-  <a href="/">Home Page</a>
-</p>
+  <p>
+    <a href="/">Home Page</a>
+  </p>
+</div>

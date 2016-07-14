@@ -42,4 +42,15 @@ class Stop
   define_singleton_method(:clear) do
     DB.exec("DELETE FROM stops")
   end
+  define_method(:find_trains_by_stop) do
+    returned_trains = DB.exec("SELECT trains.* FROM stops JOIN stop_trains ON (stops.id = stop_trains.stop_id) JOIN trains ON (stop_trains.train_id = trains.id) WHERE stops.id = #{self.id};")
+    results = []
+    returned_trains.each() do |train|
+      results.push(Train.new({
+        :id => train.fetch('id'),
+        :name => train.fetch('name')
+        }))
+    end
+    results
+  end
 end

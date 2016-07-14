@@ -43,11 +43,11 @@ class Train
     DB.exec("DELETE FROM trains")
   end
   define_method(:find_stops) do
-    current_stops = DB.exec('
-      SELECT stops.* FROM trains
-      JOIN stop_trains ON (trains.id = stop_trains.train_id)
-      JOIN stops ON (stop_trains.stop_id = stops.id )
-      WHERE train.id
-    ')
+    current_stops = DB.exec("SELECT stops.* FROM trains JOIN stop_trains ON (trains.id = stop_trains.train_id) JOIN stops ON (stop_trains.stop_id = stops.id) WHERE trains.id = #{self.id};")
+     returned_stops = []
+     current_stops.each() do |stops|
+       returned_stops.push(Stop.new({:name => stops.fetch('name'), :id => stops.fetch('id')}))
+     end
+     returned_stops
   end
 end

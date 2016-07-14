@@ -20,4 +20,24 @@ class Stoptrain
   define_method(:==) do |another_pair|
     (self.id == another_pair.id) && (self.train_id == another_pair.train_id) && (self.stop_id == another_pair.stop_id)
   end
+  define_singleton_method(:assign_stops_to_trains) do |train_id, stop_ids|
+    stop_ids.each() do |stop_id|
+      stop_train = Stoptrain.new({
+        :stop_id => stop_id,
+        :train_id => train_id
+        })
+      stop_train.save()
+    end
+  end
+  define_singleton_method(:assignment_check) do
+    associations = DB.exec("SELECT * FROM stop_trains;")
+    assoc_objects = []
+    associations.each() do |association|
+      assoc_objects.push(Stoptrain.new({:train_id => association.fetch('train_id'), :stop_id => association.fetch('stop_id')}))
+    end
+    assoc_objects.length
+  end
+  define_singleton_method(:clear) do
+    DB.exec("DELETE FROM stop_trains")
+  end
 end
