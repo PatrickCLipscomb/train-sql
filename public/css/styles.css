@@ -1,0 +1,44 @@
+* {
+  font-family: monospace;
+}
+
+#banner {
+  width: 70%;
+  display: block;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.center {
+  text-align: center;
+  font-family: monospace;
+  font-weight: bolder;
+}
+
+button:hover {
+  cursor: crosshair;
+  background-color: #C909C9;
+  color: #F609A2;
+}
+
+.bpadding {
+  padding-bottom: 30px;
+}
+
+.move_right {
+  display: block;
+  margin: 1em;
+  margin-left: 20%;
+}
+
+#results_buttons {
+  text-align: center;
+}
+
+.functional {
+  font-family: monospace;
+  font-weight: bolder;
+  text-align: center;
+  width: 20%;
+  align: center;
+}

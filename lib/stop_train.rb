@@ -29,6 +29,15 @@ class Stoptrain
       stop_train.save()
     end
   end
+  define_singleton_method(:assign_trains_to_stops) do |stop_id, train_ids|
+    train_ids.each() do |train_id|
+      stop_train = Stoptrain.new({
+        :stop_id => stop_id,
+        :train_id => train_id
+        })
+      stop_train.save()
+    end
+  end
   define_singleton_method(:assignment_check) do
     associations = DB.exec("SELECT * FROM stop_trains;")
     assoc_objects = []

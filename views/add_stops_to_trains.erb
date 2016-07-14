@@ -3,8 +3,9 @@
 
 
   <div class="container row">
-    <h1>Assign trains to stops</h1>
+    <h1>Assign stops to a train</h1>
     <div class="col-xs-6">
+      <h1>Trains</h1>
       <label for="train_id">Pick a train</label>
       <select id='train_id' name="train_id" type="text">
         <%@trains.each() do |train|%>
@@ -13,6 +14,7 @@
       </select>
     </div>
     <div class="col-xs-6">
+      <h1>Stops</h1>
       <%@stops.each() do |stop|%>
         <div class="checkbox">
           <label>

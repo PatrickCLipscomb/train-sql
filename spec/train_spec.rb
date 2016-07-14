@@ -61,4 +61,10 @@ describe(Train) do
       expect(Train.all()).to(eq([]))
     end
   end
+  describe('.change_admin') do
+    it "take a button input from index and flip a boolean indicating if user is a admin" do
+      Train.change_admin(true)
+      expect(Train.am_admin()).to(eq(true))
+    end
+  end
 end

@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-xs-4">
-    <h1>List of Trains</h1>
+  <div class="col-sm-4">
+    <h1 class="bpadding">List of Trains</h1>
     <p>
       <form action="/trains/delete" method="post">
         <input name="_method" type="hidden" value="delete">
@@ -17,8 +17,8 @@
       <h3>No trains have been added yet</h3>
     <%end%>
   </div>
-  <div class="col-xs-4">
-    <h1>List of Stops</h1>
+  <div class="col-sm-4">
+    <h1 class="bpadding">List of Stops</h1>
     <p>
       <form action="/stops/delete" method="post">
         <input name="_method" type="hidden" value="delete">
@@ -35,8 +35,8 @@
       <h3>No stops have been added yet</h3>
     <%end%>
   </div>
-  <div class="col-xs-4">
-    <h1>List of Timetables</h1>
+  <div class="col-sm-4">
+    <h1 class="bpadding">List of Timetables</h1>
     <p>
       <form action="/timetables/delete" method="post">
         <input name="_method" type="hidden" value="delete">
@@ -54,11 +54,49 @@
     <%end%>
   </div>
 </div>
-<div class="container " id="results_buttons">
-  <p>
-    <a href="/add_stops_to_trains">Add stops to trains</a>
-  </p>
-  <p>
-    <a href="/">Home Page</a>
-  </p>
+<div class="container row">
+  <div class="col-sm-4">
+    <% if @permissions == true %>
+      <form action="add_train" method="post">
+        <div class="form-group">
+          <label for="name">Enter name</label>
+          <input type="text" name="name" value="">
+        </div>
+        <button class="move_right" type="submit">Submit new Train</button>
+      </form>
+    <% end %>
+  </div>
+
+  <div class="col-sm-4">
+    <% if @permissions == true %>
+      <form action="add_stop" method="post">
+        <label for="name">Enter name</label>
+        <input type="text" name="name" value="">
+        <button class="move_right" type="submit">Submit new Stop</button>
+      </form>
+    <% end %>
+  </div>
+
+  <div class="col-sm-4">
+    <% if @permissions == true %>
+      <form action="add_timetable" method="post">
+        <label for="name">Enter name</label>
+        <input type="text" name="name" value="">
+        <button class="move_right" type="submit">Submit new Timetable</button>
+      </form>
+    <% end %>
+  </div>
 </div>
+<div class="row">
+  <div class="container col-md-12 well" id="results_buttons">
+    <p>
+      <a class="functional" href="/add_stops_to_trains">Add Stops to Trains</a>
+    </p>
+    <p>
+      <a class="functional" href="/add_trains_to_stops">Add Trains to Stops</a>
+    </p>
+    <p>
+      <a class="functional" href="/">Home Page</a>
+    </p>
+  </div>
+</row>

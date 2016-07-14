@@ -9,9 +9,26 @@ require 'pg'
 
 DB = PG.connect({:dbname => "train_sql"})
 
-get ('/') do
+get('/') do
   erb(:index)
 end
+
+post('/is_admin') do
+  @permissions = true
+  @trains = Train.all()
+  @stops = Stop.all()
+  Train.change_admin(@permissions)
+  erb(:result)
+end
+
+post('/not_admin') do
+  @permissions = false
+  @trains = Train.all()
+  @stops = Stop.all()
+  Train.change_admin(@permissions)
+  erb(:result)
+end
+
 # Begin Code for Trains
 post ('/add_train') do
   name = params.fetch('name')
@@ -20,12 +37,13 @@ post ('/add_train') do
   @trains = Train.all()
   @stops = Stop.all()
   @timetables = Timetable.all()
+  @permissions = Train.am_admin()
   erb(:result)
 end
 
 get('/train/:id/edit') do
   @train = Train.find(params.fetch('id').to_i)
-  @stops = @train.find_stops
+  @stops = @train.find_stops_by_train
   erb(:train_info)
 end
 
@@ -56,11 +74,13 @@ post ('/add_stop') do
   @stops = Stop.all()
   @trains = Train.all()
   @timetables = Timetable.all()
+  @permissions = Train.am_admin()
   erb(:result)
 end
 
 get('/stop/:id/edit') do
   @stop = Stop.find(params.fetch('id').to_i)
+  @trains = @stop.find_trains_by_stop
   erb(:stop_info)
 end
 
@@ -91,6 +111,7 @@ post ('/add_timetable') do
   @timetables = Timetable.all()
   @trains = Train.all()
   @stops = Stop.all()
+  @permissions = Train.am_admin()
   erb(:result)
 end
 
@@ -120,13 +141,22 @@ end
 get('/add_stops_to_trains') do
   @trains = Train.all()
   @stops = Stop.all()
+  @permissions = Train.am_admin()
   erb(:add_stops_to_trains)
 end
+get('/add_trains_to_stops') do
+  @trains = Train.all()
+  @stops = Stop.all()
+  @permissions = Train.am_admin()
+  erb(:add_trains_to_stops)
+end
+
 
 get('/results') do
   @stops = Stop.all()
   @trains = Train.all()
   @timetables = Timetable.all()
+  @permissions = Train.am_admin()
   erb(:result)
 end
 
@@ -137,4 +167,13 @@ patch('/assign_stops_to_trains') do
   @trains = Train.all()
   @stops = Stop.all()
   erb(:add_stops_to_trains)
+end
+
+patch('/assign_trains_to_stops') do
+  train_ids = params.fetch('train_ids')
+  stop_id = params.fetch('stop_id')
+  Stoptrain.assign_trains_to_stops(stop_id, train_ids)
+  @trains = Train.all()
+  @stops = Stop.all()
+  erb(:add_trains_to_stops)
 end

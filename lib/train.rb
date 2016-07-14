@@ -1,5 +1,6 @@
 class Train
   attr_reader(:id, :name)
+  @@admin = false
   define_method(:initialize) do |attributes|
     @id = attributes[:id] || nil
     @name = attributes.fetch(:name)
@@ -34,6 +35,7 @@ class Train
   end
   define_method(:delete) do
     DB.exec("DELETE FROM trains WHERE id = #{self.id};")
+    DB.exec("DELETE FROM stop_trains WHERE train_id = #{self.id};")
   end
   define_method(:update_name) do |name|
     @name = name
@@ -41,13 +43,24 @@ class Train
   end
   define_singleton_method(:clear) do
     DB.exec("DELETE FROM trains")
+    DB.exec("DELETE FROM stop_trains")
   end
-  define_method(:find_stops) do
+  define_method(:find_stops_by_train) do
     current_stops = DB.exec("SELECT stops.* FROM trains JOIN stop_trains ON (trains.id = stop_trains.train_id) JOIN stops ON (stop_trains.stop_id = stops.id) WHERE trains.id = #{self.id};")
      returned_stops = []
      current_stops.each() do |stops|
        returned_stops.push(Stop.new({:name => stops.fetch('name'), :id => stops.fetch('id')}))
      end
-     returned_stops
+     if returned_stops.length == 0
+       false
+     else
+       returned_stops
+     end
+  end
+  define_singleton_method(:am_admin) do
+    @@admin
+  end
+  define_singleton_method(:change_admin) do |boolean|
+    @@admin = boolean
   end
 end
